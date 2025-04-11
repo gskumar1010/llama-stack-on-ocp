@@ -8,8 +8,8 @@ spec:
       app: llamastack
   template:
     metadata:
-      annotations:
-        sidecar.opentelemetry.io/inject: llamastack-otelsidecar
+      #annotations:
+      #  sidecar.opentelemetry.io/inject: otelsidecar
       labels:
         app: llamastack
     spec:
@@ -31,15 +31,11 @@ spec:
           name: llamastack
           env:
             - name: MAX_TOKENS
-              value: '128000'
+              value: '18000'
             - name: VLLM_MAX_TOKENS
               value: '128000'
             - name: LLAMA3B_MODEL
               value: meta-llama/Llama-3.2-3B-Instruct
-            - name: GRANITE_URL
-              value: 'https://granite-8b-llama-serve.apps.ocp-beta-test.nerc.mghpcc.org/v1'
-            - name: GRANITE_MODEL
-              value: ibm-granite/granite-3.2-8b-instruct
             - name: LLAMA3B_URL
               value: 'https://llama32-3b-llama-serve.apps.ocp-beta-test.nerc.mghpcc.org/v1'
             - name: VLLM_API_TOKEN
@@ -47,11 +43,7 @@ spec:
             - name: OTEL_SERVICE_NAME
               value: om-llamastack
             - name: OTEL_TRACE_ENDPOINT
-              value: 'http://localhost:4318/v1/traces'
-            - name: SAFETY_MODEL
-              value: meta-llama/Llama-Guard-3-8B
-            - name: SAFETY_VLLM_URL
-              value: 'http://safety.llama-serve.svc.cluster.local:8000/v1'
+              value: 'http://otel-collector-collector.observability-hub.svc.cluster.local:4318/v1/traces'
             - name: MILVUS_DB_PATH
               value: milvus.db
           ports:

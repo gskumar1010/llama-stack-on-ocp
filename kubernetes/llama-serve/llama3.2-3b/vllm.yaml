@@ -21,6 +21,10 @@ spec:
       labels:
         app: llama32-3b
     spec:
+      tolerations:
+        - effect: NoSchedule
+          key: nvidia.com/gpu
+          operator: Exists
       containers:
       - args:
         - --model
@@ -32,6 +36,7 @@ spec:
         - llama3_json
         - --port
         - "8000"
+        - --max-model-len=8192
         env:
         - name: VLLM_PORT
           value: "8000"
